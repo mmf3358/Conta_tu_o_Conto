@@ -1,18 +1,27 @@
+import os
 
+
+MODEL_PATH = os.environ.get('MODEL_PATH')
+TRAIN_FILE_PATH = os.environ.get('TRAIN_FILE_PATH')
+MODEL_NAME = os.environ.get('MODEL_NAME')
 
 ### Configuraçoes PEFT
 R = 8
 LORA_ALPHA = 32
 LORA_DROPOUT = 0.1
 
-
 ### Configurações do Modelo
-MODEL_PATH = 'model'
-TRAIN_FILE_PATH = 'raw_data/data_cleaned.csv'
-MODEL_NAME = 'gpt2'
 PER_DEVICE_TRAIN_BATCH_SIZE = 16
 NUM_TRAIN_EPOCHS = 5.0
 SAVE_STEPS = 20
-
 LEARNING_RATE = 5e-3 
 LOGGING_STEPS = 20
+TEMPERATURE = .4
+
+### Generator
+GENERATOR_MAX_OUTPUT_LENGTH = 50
+
+### Summarizer
+SUMMARIZATION_MODEL = "facebook/bart-large-cnn"
+SUMMARIZER_MAX_LENGTH = 20
+SUMMARIZER_MIN_LENGTH = 10

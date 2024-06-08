@@ -17,6 +17,7 @@ peft_config = LoraConfig(
     r=R,
     lora_alpha=LORA_ALPHA,
     lora_dropout=LORA_DROPOUT
+    
     )
 
 
@@ -88,10 +89,9 @@ def load_tokenizer(tokenizer_path):
     return tokenizer
 
 
-def generate_text(sequence, max_length):
-    model_path = model_path
-    model = load_model(model_path)
-    tokenizer = load_tokenizer(model_path)
+def generate_text(sequence, max_length, temperature = TEMPERATURE):
+    model = load_model(MODEL_PATH)
+    tokenizer = load_tokenizer(MODEL_PATH)
     ids = tokenizer.encode(f'{sequence}', return_tensors='pt')
     final_outputs = model.generate(
         ids,
@@ -101,4 +101,18 @@ def generate_text(sequence, max_length):
         top_k=50,
         top_p=0.95,
     )
+    return(tokenizer.decode(final_outputs[0], skip_special_tokens=True))
+
+
+def summarizer(output):
+    
+    summarizer = pipeline("summarization", model=SUMMARIZATION_MODEL)
+
+    return summarizer(
+        output,
+        max_length=SUMMARIZER_MAX_LENGTH,
+        min_length=SUMMARIZER_MIN_LENGTH,
+        do_sample=False
+        )
+    
     
