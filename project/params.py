@@ -7,7 +7,7 @@ LORA_DROPOUT = 0.1
 
 
 ### Configurações do Modelo
-MODEL_PATH = 'project/model'
+MODEL_PATH = 'model'
 TRAIN_FILE_PATH = 'raw_data/data_cleaned.csv'
 MODEL_NAME = 'gpt2'
 PER_DEVICE_TRAIN_BATCH_SIZE = 16

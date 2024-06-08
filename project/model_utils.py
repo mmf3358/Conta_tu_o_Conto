@@ -9,14 +9,7 @@ import torch
 
 from project.params import *
 
-import os
-
-print(os.getcwd())
-
-print(TRAIN_FILE_PATH)
-
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
-
 
 peft_config = LoraConfig(
     task_type=TaskType.CAUSAL_LM,
@@ -84,15 +77,28 @@ def train(train_file_path,model_name,
     trainer.train()
     trainer.save_model()
     
- 
-### Treina o Modelo
-train(
-    train_file_path=TRAIN_FILE_PATH,
-    model_name=MODEL_NAME,
-    output_dir=MODEL_PATH,
-    overwrite_output_dir=True,
-    per_device_train_batch_size=PER_DEVICE_TRAIN_BATCH_SIZE,
-    num_train_epochs=NUM_TRAIN_EPOCHS,
-    save_steps=SAVE_STEPS
-)
 
+def load_model(model_path):
+    model = GPT2LMHeadModel.from_pretrained(model_path)
+    return model
+
+
+def load_tokenizer(tokenizer_path):
+    tokenizer = GPT2Tokenizer.from_pretrained(tokenizer_path)
+    return tokenizer
+
+
+def generate_text(sequence, max_length):
+    model_path = model_path
+    model = load_model(model_path)
+    tokenizer = load_tokenizer(model_path)
+    ids = tokenizer.encode(f'{sequence}', return_tensors='pt')
+    final_outputs = model.generate(
+        ids,
+        do_sample=True,
+        max_length=max_length,
+        pad_token_id=model.config.eos_token_id,
+        top_k=50,
+        top_p=0.95,
+    )
+    
