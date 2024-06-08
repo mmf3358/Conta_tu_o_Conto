@@ -1,7 +1,7 @@
 
 
 from project.params import *
-from project.model.model_utils import train
+from project.model_utils import train
 
 train(
     train_file_path=TRAIN_FILE_PATH,
