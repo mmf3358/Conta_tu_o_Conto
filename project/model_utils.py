@@ -46,6 +46,8 @@ def train(train_file_path,model_name,
           save_steps):
     
     tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+    
+    print(f'\n\n\t Loading DataSet from {TRAIN_FILE_PATH} ...')
     train_dataset = load_dataset(train_file_path, tokenizer)
     data_collator = load_data_collator(tokenizer)
 
@@ -74,8 +76,10 @@ def train(train_file_path,model_name,
           data_collator=data_collator,
           train_dataset=train_dataset,
     )
-
+    print('\n\n\t Starting Training ...')
     trainer.train()
+    
+    print(f'\n\n\t Saving Trained Model at {MODEL_PATH} ...')
     trainer.save_model()
     
 
