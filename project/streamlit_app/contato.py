@@ -1,7 +1,33 @@
-import streamlit as st
 from PIL import Image
+from utils.aux import get_img_as_base64
+
+import streamlit as st
 
 def contato() -> None:
+
+    # img = get_img_as_base64("images/clouds.png")
+
+    # page_bg_img = f"""
+    # <style>
+    # [data-testid="stAppViewContainer"] > .main {{
+    # background-image: url("data:image/png;base64,{img}");
+    # background-size: 100%;
+    # background-position: center;
+    # background-repeat: no-repeat;
+    # background-attachment: fixed;
+    # }}
+
+    # [data-testid="stHeader"] {{
+    # background: rgba(0,0,0,0);
+    # }}
+
+    # [data-testid="stToolbar"] {{
+    # right: 2rem;
+    # }}
+    # </style>
+    # """
+
+    # st.markdown(page_bg_img, unsafe_allow_html=True)
 
     person1 = {
         "name": "Batata 1",
