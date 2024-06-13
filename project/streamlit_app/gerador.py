@@ -1,6 +1,32 @@
+from utils.aux import get_img_as_base64
+
 import streamlit as st
 
 def gerador() -> None:
+
+    # img = get_img_as_base64("images/clouds.png")
+
+    # page_bg_img = f"""
+    # <style>
+    # [data-testid="stAppViewContainer"] > .main {{
+    # background-image: url("data:image/png;base64,{img}");
+    # background-size: 100%;
+    # background-position: center;
+    # background-repeat: no-repeat;
+    # background-attachment: fixed;
+    # }}
+
+    # [data-testid="stHeader"] {{
+    # background: rgba(0,0,0,0);
+    # }}
+
+    # [data-testid="stToolbar"] {{
+    # right: 2rem;
+    # }}
+    # </style>
+    # """
+
+    # st.markdown(page_bg_img, unsafe_allow_html=True)
 
     st.title("Gerador de Contos")
 
@@ -9,21 +35,21 @@ def gerador() -> None:
     tema = st.session_state["tema"]
     corpo = st.session_state["corpo"]
 
-    formatted_md = f"#### **{nome}**"
-    st.subheader("Nome da Personagem Principal: ")
-    st.markdown(formatted_md, unsafe_allow_html=True)
+    # formatted_md = f"#### **{nome}**"
+    # st.subheader("Nome da Personagem Principal: ")
+    # st.markdown(formatted_md, unsafe_allow_html=True)
 
-    formatted_md = f"#### **{corpo}**"
-    st.subheader("Tipo de corpo da Personagem Principal: ")
-    st.markdown(formatted_md, unsafe_allow_html=True)
+    # formatted_md = f"#### **{corpo}**"
+    # st.subheader("Tipo de corpo da Personagem Principal: ")
+    # st.markdown(formatted_md, unsafe_allow_html=True)
 
-    formatted_md = f"#### **{idade}**"
-    st.subheader("Idade da Personagem Principal: ")
-    st.markdown(formatted_md, unsafe_allow_html=True)
+    # formatted_md = f"#### **{idade}**"
+    # st.subheader("Idade da Personagem Principal: ")
+    # st.markdown(formatted_md, unsafe_allow_html=True)
 
-    formatted_md = f"#### **{tema}**"
-    st.subheader("Tema Escolhido: ")
-    st.markdown(formatted_md, unsafe_allow_html=True)
+    # formatted_md = f"#### **{tema}**"
+    # st.subheader("Tema Escolhido: ")
+    # st.markdown(formatted_md, unsafe_allow_html=True)
 
     if tema == "Tema 1":
         texto_tema = "estava procurando um dragão em forma de batata frita"
