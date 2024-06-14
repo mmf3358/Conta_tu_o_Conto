@@ -1,4 +1,4 @@
-from utils.aux import get_img_as_base64
+
 
 import streamlit as st
 

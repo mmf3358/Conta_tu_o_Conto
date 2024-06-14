@@ -1,6 +1,6 @@
 from streamlit_option_menu import option_menu
-from utils.aux import get_img_as_base64, load_lottiefile
-from streamlit_lottie import st_lottie
+
+
 
 from navigation import get_navigation
 from gerador import gerador
