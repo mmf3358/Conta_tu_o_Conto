@@ -3,6 +3,7 @@
 from project.params import *
 from project.model_utils import train
 
+
 train(
     train_file_path=TRAIN_FILE_PATH,
     model_name=MODEL_NAME,
