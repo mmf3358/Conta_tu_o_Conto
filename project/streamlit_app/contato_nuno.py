@@ -77,20 +77,28 @@ def contato() -> None:
         # output é mostrado em uma caixa de texto
 
         # opcoes de escolha
-        # selected_option = st.selectbox("Escolha uma opção", options)
+    #     selected_option = st.selectbox("Escolha uma opção", options)
 
-        # # Update the text box with the new value
-        # if selected_option == options[0]:
-        #     text_box = completo_1
-        # elif selected_option == options[1]:
-        #     text_box = completo_2
-        # elif selected_option == options[2]:
-        #     text_box = completo_3
-
-
+    #     # Update the text box with the new value
+    #     if selected_option == options[0]:
+    #         text_box = completo_1
+    #     elif selected_option == options[1]:
+    #         text_box = completo_2
+    #     elif selected_option == options[2]:
+    #         text_box = completo_3
 
 
+    #     caixa de texto st.session_state[caixa de texto]
+
+    #     select box -> alterar caixa de texto
+
+    #     texto_caixa de texto -> alteracao no session state do input modelo
+
+    #     input - > executar o request
+
+    #     st.session
+
+    # confirm_button = st.button('Reconfigurar personagem', on_click=button_gerador)
 
 
-
-    confirm_button = st.button('Reconfigurar personagem', on_click=button_gerador)
+    # confirm_button = st.button('Reconfigurar personagem', on_click=button_gerador)
