@@ -1,6 +1,9 @@
-
-
 import streamlit as st
+import random
+import warnings
+
+# Suppress warnings
+warnings.filterwarnings("ignore")
 
 def button_gerador():
     st.session_state["escolha"] = 'pergunta'
@@ -41,17 +44,20 @@ def contato() -> None:
     if tema == "Tema 1":
         texto_tema = "estava procurando um dragão em forma de batata frita"
 
-    if tema == "Tema 2":
+    elif tema == "Tema 2":
         texto_tema = "estava com medo de unicórnios voadores"
 
-    if tema == "Tema 3":
+    elif tema == "Tema 3":
         texto_tema = "procurava uma vaga para estacionar o seu cavalo"
 
-    if tema == "Tema 4":
+    elif tema == "Tema 4":
         texto_tema = "andava pelo jardim de sorvetes florais"
 
-    if tema == "Tema 5":
+    elif tema == "Tema 5":
         texto_tema = "passeava com seu cachorro Fluffy"
+
+    else:
+        print("Definir tema")
 
     if corpo in ["Garoto", "Jovem", "Senhor"]:
         artigo = "um"
@@ -79,14 +85,6 @@ def contato() -> None:
         # opcoes de escolha
     #     selected_option = st.selectbox("Escolha uma opção", options)
 
-    #     # Update the text box with the new value
-    #     if selected_option == options[0]:
-    #         text_box = completo_1
-    #     elif selected_option == options[1]:
-    #         text_box = completo_2
-    #     elif selected_option == options[2]:
-    #         text_box = completo_3
-
 
     #     caixa de texto st.session_state[caixa de texto]
 
@@ -96,9 +94,51 @@ def contato() -> None:
 
     #     input - > executar o request
 
-    #     st.session
+    if 'initial_input' not in st.session_state:
+        st.session_state['initial_input'] = ''
 
-    # confirm_button = st.button('Reconfigurar personagem', on_click=button_gerador)
+    def return_output(input_user) -> None:
+        input_user = input_user
+
+        output = input_user + "_batata_"
+
+        return output
+
+    options = ['',
+               'comer',
+               'fritar',
+               'assar',
+               'amar']
+
+    selected_option = st.selectbox("Selecione um caminho",
+                                   options,
+                                   )
+
+
+    def change_input_state():
+        st.session_state["initial_input"] = selected_option
+
+
+    def button_continuar(selected_option):
+        st.session_state["initial_input"] = selected_option
+
+    submit = st.button('Gerar Conto banana')
+
+    if submit:
+
+        st.subheader("Summary:")
+
+        output = return_output(selected_option)
+
+        text2 = output
+
+        st.write(text2)
+
+    continue_button = st.button('Continuar', on_click=button_continuar)
+
+    st.write("---")
+
+    confirm_button = st.button('Reconfigurar personagem', on_click=button_gerador)
 
 
     # confirm_button = st.button('Reconfigurar personagem', on_click=button_gerador)

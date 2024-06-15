@@ -1,7 +1,16 @@
-
-
-
 import streamlit as st
+import warnings
+import base64
+
+# Suppress warnings
+warnings.filterwarnings("ignore")
+
+
+@st.cache_data
+def get_img_as_base64(file):
+    with open(file, "rb") as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
 
 def button_pergunta():
     st.session_state["escolha"] = 'gerador'
@@ -9,6 +18,30 @@ def button_pergunta():
 def home():
     # st.subheader('HOME')
     # st.subheader('aqui faz perguntas')
+
+    img = get_img_as_base64("project/streamlit_app/images/clouds.png")
+
+    page_bg_img = f"""
+    <style>
+    [data-testid="stAppViewContainer"] > .main {{
+    background-image: url("data:image/png;base64,{img}");
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: local;
+    }}
+
+    [data-testid="stHeader"] {{
+    background: rgba(0,0,0,0);
+    }}
+
+    [data-testid="stToolbar"] {{
+    right: 2rem;
+    }}
+    </style>
+    """
+
+    # st.markdown(page_bg_img, unsafe_allow_html=True)
 
     st.markdown(
     f"""
