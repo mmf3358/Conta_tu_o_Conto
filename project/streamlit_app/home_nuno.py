@@ -1,72 +1,83 @@
-
-
-
 import streamlit as st
-import base64
+import warnings
 
 
 
-@st.cache(allow_output_mutation=True)
-def get_base64_of_bin_file(bin_file):
-    with open(bin_file, 'rb') as f:
-        data = f.read()
-    return base64.b64encode(data).decode()
+if "corpo" not in st.session_state:
+      
+      
+      
+st.session_state["corpo"] = ""
 
-def set_png_as_page_bg(png_file):
-    bin_str = get_base64_of_bin_file(png_file)
-    page_bg_img = '''
-    <style>
-    body {
-    background-image: url("data:image/png;base64,%s");
-    background-size: cover;
-    }
-    </style>
-    ''' % bin_str
-    
-    st.markdown(page_bg_img, unsafe_allow_html=True)
-    return
+st.subheader("Tipo de Personagem")
 
-set_png_as_page_bg('Fundo_01.png')
+lista_tipo = [" ",
+                   "Humano",
+                   "Elfo",
+                   "Unicórnio",
+                   "Ogro",
+                   "Fada",
+                   "Anão"]
+corpo = st.selectbox("Tipo de personagem", lista_tipo)
 
-""" def get_base64_of_bin_file(bin_file):
-    with open(bin_file, 'rb') as f:
-        data = f.read()
-    return base64.b64encode(data).decode()
+    # if corpo == " ":
+    #     st.error("Escolha o tipo")
 
-def set_background(image_url):
-    page_bg_img = '''
-    <style>
-    body {
-    background-image: url("%s");
-    background-size: cover;
-    }
-    </style>
-    ''' % image_url
+    # corpo_button = st.button("Confirmar Corpo")
 
-    st.markdown(page_bg_img, unsafe_allow_html=True)
+    # if corpo_button:
+    #     st.session_state["corpo"] = corpo
+    #     # st.write("Tipo de corpo escolhido: ", corpo)
+    #     st.success(f"Tipo de corpo escolhido: {corpo}")
 
+if "idade" not in st.session_state:
+    st.session_state["idade"] = 0
 
-def button_pergunta():
-    st.session_state["escolha"] = 'gerador'
+st.subheader("Idade do Personagem")
+idade = st.slider("Idade do Personagem: ",
+                      min_value=10,
+                      max_value=80,
+                      step=1,
+                      value=st.session_state["idade"],
+                    #   width=400,
+                    #   height=200
+                      )
 
-def home():
+    # idade_button = st.button("Confirmar Idade")
 
-    
-    set_background('images/Fundo_01.png')
+    # if idade_button:
+    #     st.session_state["idade"] = int(idade)
+    #     # st.write("Idade escolhida: ", idade, "anos")
+    #     st.success(f"Idade escolhida: {idade} anos")
 
-    col5, col6 = st.columns([8, 2])
-    
-    with col5:
-        st.write("Column 1")
-        st.write("Content A")
+if "tema" not in st.session_state:
+    st.session_state["tema"] = []
 
-# Adding elements to the second column
-    with col6:
-        st.write("Column 2")
-        st.write("Content B")
+st.subheader("Tema do Conto")
 
-#  """
-    
+lista_tema = ["Tema do Conto", "Tema 1", "Tema 2", "Tema 3", "Tema 4", "Tema 5"]
+tema = st.selectbox("Tema do Conto", lista_tema)
 
-    
-    
+    # tema_button = st.button("Confirmar Tema")
+
+    # if tema_button:
+    #     st.session_state["tema"] = tema
+    #     # st.write("Tema escolhido: ", st.session_state["tema"])
+    #     st.success(f"Tema escolhido: {tema}")
+
+    # if selected_page == "Confirmar":
+if nome == " ":
+    nome = "Introduza o nome"
+elif nome != " ":
+    st.session_state["nome"] = nome
+    st.session_state["idade"] = int(idade)
+    st.session_state["corpo"] = corpo
+    st.session_state["tema"] = tema
+
+    # if qualquer nao existe:
+    #     button
+    #     st.error(DEFINA A MERDA DO NOME)
+
+    # else:
+
+confirm_button = st.button('Confirmar escolhas', on_click=button_pergunta)

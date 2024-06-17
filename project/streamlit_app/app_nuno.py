@@ -1,7 +1,11 @@
 import streamlit as st
 import base64
 
+from contato_nuno import home
 
+
+
+home()
 
 def get_base64(bin_file):
     with open(bin_file, 'rb') as f:

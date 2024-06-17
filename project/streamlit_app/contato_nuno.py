@@ -1,16 +1,13 @@
 
-
 import streamlit as st
+import base64
 
 def button_gerador():
     st.session_state["escolha"] = 'pergunta'
 
-def contato() -> None:
 
-    # st.subheader('GERADOR')
-    # st.subheader('aqui conta conto')
 
-@st.cache_data
+
 def get_img_as_base64(file):
     with open(file, "rb") as f:
         data = f.read()
@@ -23,7 +20,7 @@ def home():
     # st.subheader('HOME')
     # st.subheader('aqui faz perguntas')
 
-    img = get_img_as_base64("project/streamlit_app/images/clouds.png")
+    img = get_img_as_base64("Fundo_01.png")
 
     page_bg_img = f"""
     <style>
