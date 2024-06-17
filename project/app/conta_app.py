@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from project.model_utils import generate_text, summarizer
+from project.model_utils import generate_text, summarizergit pull
 from project.params import *
 
 app = FastAPI()

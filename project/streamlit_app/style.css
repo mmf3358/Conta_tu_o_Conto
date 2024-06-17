@@ -1,0 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Love+Ya+Like+A+Sister&display=swap" rel="stylesheet"); 
+
+html, body, [class*="css"] {
+    font-family: "Love Ya Like A Sister", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
