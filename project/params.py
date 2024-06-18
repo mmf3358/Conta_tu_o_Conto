@@ -5,6 +5,10 @@ MODEL_PATH = os.environ.get('MODEL_PATH')
 TRAIN_FILE_PATH = os.environ.get('TRAIN_FILE_PATH')
 MODEL_NAME = os.environ.get('MODEL_NAME')
 
+TRANSLATOR_EN_PT = os.environ.get('TRANSLATOR_EN_PT')
+TRANSLATOR_PT_EN = os.environ.get('TRANSLATOR_PT_EN')
+
+
 ### Configuraçoes PEFT
 R = 8
 LORA_ALPHA = 32
