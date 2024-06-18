@@ -7,7 +7,7 @@ if "corpo" not in st.session_state:
       
       
       
-st.session_state["corpo"] = ""
+    st.session_state["corpo"] = ""
 
 st.subheader("Tipo de Personagem")
 
