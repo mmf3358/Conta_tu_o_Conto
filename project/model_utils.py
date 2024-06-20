@@ -1,4 +1,5 @@
 from transformers import GPT2Tokenizer, GPT2LMHeadModel, pipeline, TextDataset, DataCollatorForLanguageModeling, Trainer, TrainingArguments
+from transformers.generation.stopping_criteria import StoppingCriteria
 from peft import LoraConfig, TaskType, get_peft_model
 from datasets import load_dataset
 
@@ -9,15 +10,28 @@ import torch
 
 from project.params import *
 
+class DotStoppingCriteria(StoppingCriteria):
+    def __init__(self):
+        super().__init__()
+    def __call__(self, input_ids: torch.LongTensor, scores: torch.FloatTensor, **kwargs) -> bool:
+        return torch.any(input_ids == 46)  # 46 is the index of the dot (.) in the tokenizer
+    def __len__(self):
+        return 1
+    def __iter__(self):
+        return iter([self])
+    def stop(self, input_ids: torch.LongTensor, scores: torch.FloatTensor, **kwargs) -> bool:
+        return torch.any(input_ids == 46) or torch.any(input_ids == 44)
+
+
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 peft_config = LoraConfig(
     task_type=TaskType.CAUSAL_LM,
-    inference_mode=False, 
+    inference_mode=False,
     r=R,
     lora_alpha=LORA_ALPHA,
     lora_dropout=LORA_DROPOUT
-    
+
     )
 
 
@@ -44,7 +58,7 @@ def train(train_file_path,model_name,
           per_device_train_batch_size,
           num_train_epochs,
           save_steps):
-    
+
     tokenizer = GPT2Tokenizer.from_pretrained(model_name)
     
     print(f'\n\n\t Loading DataSet from {TRAIN_FILE_PATH} ...')
@@ -81,7 +95,7 @@ def train(train_file_path,model_name,
     
     print(f'\n\n\t Saving Trained Model at {MODEL_PATH} ...')
     trainer.save_model()
-    
+
 
 def load_model(model_path):
     model = GPT2LMHeadModel.from_pretrained(model_path)
@@ -91,6 +105,8 @@ def load_model(model_path):
 def load_tokenizer(tokenizer_path):
     tokenizer = GPT2Tokenizer.from_pretrained(tokenizer_path)
     return tokenizer
+
+
 
 
 def generate_text(sequence, max_length, temperature = TEMPERATURE):
@@ -109,7 +125,7 @@ def generate_text(sequence, max_length, temperature = TEMPERATURE):
 
 
 def summarizer(output):
-    
+
     summarizer = pipeline("summarization", model=SUMMARIZATION_MODEL)
 
     return summarizer(
@@ -118,5 +134,12 @@ def summarizer(output):
         min_length=SUMMARIZER_MIN_LENGTH,
         do_sample=False
         )
-    
-    
+
+def translator(inputs,model):
+
+    translator = pipeline("translation", model)
+
+    return translator(inputs,
+                     max_length= 256,
+                     do_sample= False
+                     )
