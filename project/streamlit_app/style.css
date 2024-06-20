@@ -1,7 +1,54 @@
-@import url("https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Love+Ya+Like+A+Sister&display=swap" rel="stylesheet"); 
-
-html, body, [class*="css"] {
-    font-family: "Love Ya Like A Sister", cursive;
-    font-weight: 400;
-    font-style: normal;
+@import url('https://fonts.googleapis.com/css2?family=Neucha&display=swap');
+h1 {
+    font-family: "Neucha", cursive;
+    font-size: 55px;
+    font-weight: 500;
+    color: #521c0b;
+    text-align: center;
 }
+
+h2 {
+    font-family: "Neucha", cursive;
+    font-size: 30px;
+    font-weight: 500;
+    color: #521c0b;
+    text-align: center;
+}
+
+h3 {
+    font-family: "Neucha", cursive;
+    font-size: 7px;
+    font-weight: 500;
+    color: #521c0b;
+    text-align: center;
+}
+
+p {
+    font-family: "Neucha", cursive;
+    font-size: 15px;
+    font-weight: 500;
+    color:#585318;;
+}
+
+.stButton>button {
+    border-radius: 3px;
+    background-color: #fff5f5;
+    border-color: #fff5f5;
+}
+
+.stButton>button:hover {
+    border-radius: 5px;
+    border-width: 2px;
+    background-color: #fff5f5;
+    border-color: #521c0b;
+}
+  
+  
+.element-container:has(#button-after) + div button {
+    border-radius: 5%;
+    background-color: #ffffff;
+    border-color: #444010;
+    border-width: 3px;
+    
+}
+
