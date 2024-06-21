@@ -4,7 +4,7 @@ import os
 import base64
 
 from project.streamlit_app.streamlit_utils import *
-
+from project.app.conta_app import *
 
 
 
@@ -62,34 +62,11 @@ def Imprime_contexto(opcao, contexto):
   
   
 
-def Gerar_alternativas():
+def Gerar_alternativas(contexto):
     ### Pega dos modelos alternativas para o cont
     
-    continuacoes = [
-        'hahaha hahaha hahaha hahaha hahaha hahaha hahaha hahaha hahaha hahaha hahaha hahaha hahaha hahaha hahaha hahaha hahaha',
-        'hehehe hehehe hehehe hehehe hehehe hehehe hehehe hehehe hehehe hehehe hehehe hehehe hehehe hehehe hehehe hehehe hehehe',
-        'hihihi hihihi hihihi hihihi hihihi hihihi hihihi hihihi hihihi hihihi hihihi hihihi hihihi hihihi hihihi hihihi hihihi',
-        'hohoho hohoho hohoho hohoho hohoho hohoho hohoho hohoho hohoho hohoho hohoho hohoho hohoho hohoho hohoho hohoho hohoho',
-        'huhuhu huhuhu huhuhu huhuhu huhuhu huhuhu huhuhu huhuhu huhuhu huhuhu huhuhu huhuhu huhuhu huhuhu huhuhu huhuhu huhuhu '
-        ]
-
-    sumarizacoes = [
-        'hahaha hahaha hahaha hahaha hahaha hahaha hahaha hahaha ',
-        'hehehe hehehe hehehe hehehe hehehe hehehe hehehe hehehe ',
-        'hihihi hihihi hihihi hihihi hihihi hihihi hihihi hihihi ',
-        'hohoho hohoho hohoho hohoho hohoho hohoho hohoho hohoho ',
-        'huhuhu huhuhu huhuhu huhuhu huhuhu huhuhu huhuhu huhuhu '
-        ]
-
-    cont = []
-    sum = []
-    
-    for i in range(3):
-        rand = random.randint(0,4)
-        
-        cont.append(continuacoes[rand])
-        sum.append(sumarizacoes[rand])
-        
+    cont, sum = generate_outputs(contexto)
+           
     alternativas = [cont, sum]
     
     return alternativas
@@ -98,7 +75,7 @@ def Gerar_alternativas():
 
 def gerador():
     
-    contexto = 'hahaha hahaha hahaha hahaha hahaha hahaha hahaha hahaha hahaha hahaha hahaha hahaha hahaha hahaha hahaha hahaha hahaha'
+    contexto = 'Era uma vez um cavaleiro.'
 
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -123,7 +100,7 @@ def gerador():
 
     Imprime_contexto(st.session_state["opcao"], st.session_state["contexto"])
 
-    alternativas = Gerar_alternativas()
+    alternativas = Gerar_alternativas(contexto)
     
     Escolher_continuacao(alternativas)
   

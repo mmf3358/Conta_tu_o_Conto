@@ -109,7 +109,10 @@ def load_tokenizer(tokenizer_path):
 
 
 
-def generate_text(sequence, max_length, temperature = TEMPERATURE):
+def generate_text(sequence):
+    
+    max_length = MAX_LENGTH
+    temperature = TEMPERATURE
     model = load_model(MODEL_PATH)
     tokenizer = load_tokenizer(MODEL_PATH)
     ids = tokenizer.encode(f'{sequence}', return_tensors='pt')
@@ -130,8 +133,6 @@ def summarizer(output):
 
     return summarizer(
         output,
-        max_length=SUMMARIZER_MAX_LENGTH,
-        min_length=SUMMARIZER_MIN_LENGTH,
         do_sample=False
         )
 
