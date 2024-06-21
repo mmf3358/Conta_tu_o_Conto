@@ -10,4 +10,4 @@ COPY setup.py setup.py
 RUN pip install .
 
 
-CMD uvicorn project.app.conta_app:app --host 0.0.0.0 --port $PORT
+CMD uvicorn project.app.conta_app:app --host 0.0.0.0 --port $PORTv 5
