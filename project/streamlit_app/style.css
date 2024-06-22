@@ -1,15 +1,48 @@
 @import url('https://fonts.googleapis.com/css2?family=Neucha&display=swap');
-h1 {
+.titulo {
     font-family: "Neucha", cursive;
-    font-size: 55px;
+    font-size: 110px;
     font-weight: 500;
     color: #521c0b;
     text-align: center;
 }
 
+.subtitulo_01 {
+  font-family: "Neucha", cursive;
+  font-size: 30px;
+  font-weight: 500;
+  color: #521c0b;
+  text-align: left;
+}
+
+.subtitulo_02 {
+  font-family: "Neucha", cursive;
+  font-size: 40px;
+  font-weight: 540;
+  color: #521c0b;
+  text-align: left;
+}
+
+
+.texto_01 {
+  font-family: "Neucha", cursive;
+  font-size: 20px;
+  font-weight: 500;
+  color: #521c0b;
+  text-align: left;
+}
+
+.texto_02 {
+  font-family: "Neucha", cursive;
+  font-size: 20px;
+  font-weight: 500;
+  color: #d31a77;
+  text-align: center;
+}
+
 h2 {
     font-family: "Neucha", cursive;
-    font-size: 30px;
+    font-size: 65px;
     font-weight: 500;
     color: #521c0b;
     text-align: center;
@@ -17,7 +50,7 @@ h2 {
 
 h3 {
     font-family: "Neucha", cursive;
-    font-size: 7px;
+    font-size: 35px;
     font-weight: 500;
     color: #521c0b;
     text-align: center;
@@ -25,8 +58,8 @@ h3 {
 
 p {
     font-family: "Neucha", cursive;
-    font-size: 15px;
-    font-weight: 500;
+    font-size: 20px;
+    font-weight: 20;
     color:#585318;;
 }
 
@@ -42,13 +75,42 @@ p {
     background-color: #fff5f5;
     border-color: #521c0b;
 }
-  
-  
+
+
 .element-container:has(#button-after) + div button {
     border-radius: 5%;
     background-color: #ffffff;
     border-color: #444010;
     border-width: 3px;
-    
+
 }
 
+.element-container:has(#button-escolha) + div button {
+  border-radius: 5%;
+  background-color: #fdfaf0;
+  border-color: #444010;
+  border-width: 1px;
+
+}
+
+.element-container:has(#button-escolhido) + div button {
+  border-radius: 5%;
+  background-color: #ccbc80;
+  border-color: #444010;
+  border-width: 3px;
+
+}
+
+div.st-ae    {
+  border-radius: 0%;
+  background-color: #e6d6a5;
+  border-color: #444010;
+  border-width: 1px;
+
+}
+
+
+div[data-testid="column"]:has(span) div div div
+    {
+        gap: 0rem;
+    }

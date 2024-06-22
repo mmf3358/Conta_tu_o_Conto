@@ -1,7 +1,6 @@
 import streamlit as st
 import random
 import os
-import base64
 
 from project.streamlit_app.streamlit_utils import *
 from project.app.conta_app import *
@@ -26,9 +25,8 @@ def Escolher_continuacao(alternativas):
     ###  Da a escolher 3 alternativas de continuação e define uma como a escolhida 
 
     st.subheader('')
-    st.header("Opções para continuação")
-    st.subheader('')
-   
+    st.subheader("Opções para continuação")
+       
     col1, col2, col3 = st.columns(3)
     
     with col1:
@@ -46,12 +44,7 @@ def Escolher_continuacao(alternativas):
     
 def Imprime_contexto(opcao, contexto):
     ###  Imprime o conto
-  
-    st.title('o Conto')
-   
-    
     with st.container(height=200, border=False):
-        
         if len(opcao) == 0:
             texto= f"<span style='color: black;'>{contexto}</span>"
         else:
@@ -64,52 +57,37 @@ def Imprime_contexto(opcao, contexto):
 
 def Gerar_alternativas(contexto):
     ### Pega dos modelos alternativas para o cont
-    
     cont, sum = generate_outputs(contexto)
-           
     alternativas = [cont, sum]
     
     return alternativas
 
-
+    
 
 def gerador():
-    
-    contexto = 'Era uma vez um cavaleiro.'
-
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
+    ### Gerador dos possiveis contextos de conto a partir de IA Generativa
     cwd = os.getcwd()
-    bg_image_file = f"{cwd}/project/streamlit_app/images/Fundo_01 copy.png"
+    bg_image_file = f"{cwd}/project/streamlit_app/images/fundo_gerador.png"
     style_css_file = f"{cwd}/project/streamlit_app/style.css"
 
     with open( style_css_file ) as css:
         st.markdown( f'<style>{css.read()}</style>' , unsafe_allow_html= True)
 
-
     Define_imagem_de_fundo(bg_image_file)
-
-    if "opcao" not in st.session_state:
-        st.session_state["opcao"] = ""
-
-    if "contexto" not in st.session_state:
-        st.session_state["contexto"] = contexto
-
-
+    titulo = st.session_state["titulo"]
+    st.markdown(f'<p class="titulo">{titulo}</p>', unsafe_allow_html=True)
+    
     Imprime_contexto(st.session_state["opcao"], st.session_state["contexto"])
 
-    alternativas = Gerar_alternativas(contexto)
+    alternativas = Gerar_alternativas(st.session_state["contexto"])
     
     Escolher_continuacao(alternativas)
-  
-    
-  
-    st.subheader('')
+      
     col1, col2, col3 = st.columns(3)
-    
+
+    ### Botao de mudança de página
     with col2:
+        st.header('')
         st.markdown('<span id="button-after"></span>', unsafe_allow_html=True)
         confirm_button = st.button('reconfigurar escolhas', on_click=alterar_estado, use_container_width=True)
 
