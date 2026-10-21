@@ -1,48 +1,59 @@
 # Conta tu o Conto
 
-Protótipo de narrativa interativa: cria uma personagem, escolhe um cenário e continua a história escolhendo uma de três alternativas geradas por IA.
+Aplicação de narrativa interativa com inteligência artificial. Cria uma personagem, escolhe um cenário e constrói um conto ao selecionar uma de três continuações geradas em cada ronda.
 
-Esta recuperação utiliza **GPT-2 pré-treinado**, sem o modelo LoRA nem os dados do treino original, que já não estão disponíveis. Não equivale à qualidade ou ao comportamento da versão treinada. GPT-2 pode produzir texto incoerente ou inadequado; revê sempre os resultados. Não há filtros de conteúdo nem adequação infantil garantida.
+A aplicação combina uma interface **Streamlit**, geração de texto com **GPT-2** e tradução entre português e inglês. O conto cresce com as escolhas do utilizador e pode ser guardado num ficheiro de texto.
 
-## Estado do treino e do modelo
+## Funcionalidades
 
-### Trabalho original
+- Configuração do título, nome, idade e ocupação da personagem.
+- Três cenários: castelo, floresta e reino de fadas.
+- Geração de três alternativas por ronda, com seleção pelo utilizador.
+- Continuação da narrativa a partir das escolhas anteriores.
+- Modos português e inglês.
+- Exportação do conto completo em `.txt`.
+- Interface ilustrada, com cartões de texto e deslocamento interno.
+- API FastAPI opcional para integrar a geração noutras aplicações.
 
-O projeto original incluiu trabalho de treino de GPT-2 com **LoRA/PEFT**, com o objetivo de o adaptar à geração de contos. Nuno Fernandes desenvolveu a interface Streamlit completa e foi responsável pelo treino e pela implementação do código LoRA, num projeto colaborativo.
+## Modelo e treino
 
-O código e os notebooks foram preservados em `legacy/`, incluindo a configuração LoRA com `r=8`, `lora_alpha=32` e `lora_dropout=0.1`. Contudo, os **artefactos do modelo treinado e os dados utilizados já não estão disponíveis**. O código preservado não substitui esses ficheiros e requer revisão antes de um novo treino.
+O projeto inclui código de treino de GPT-2 com **LoRA/PEFT**. **Os dados de treino e os artefactos do modelo treinado não estão disponíveis neste repositório.**
 
-### Versão recuperada
+A aplicação funciona com **GPT-2 pré-treinado**, mantendo a sua essência: gerar alternativas, permitir que o utilizador escolha uma e continuar o conto. A demonstração não necessita dos ficheiros de treino. O código experimental e os notebooks estão em `legacy/`; não são executados pela aplicação.
 
-A aplicação atual carrega **`openai-community/gpt2` pré-treinado**, sem os pesos ou adaptadores do treino original. Não foi realizado um novo treino durante esta recuperação. O download dos modelos no primeiro uso serve apenas para os carregar e gerar texto; **não treina o modelo**, nem as escolhas do utilizador atualizam os seus pesos.
+No modo português, o contexto é traduzido para inglês antes da geração e as continuações são traduzidas para português. No modo inglês, apenas GPT-2 é necessário. O download inicial dos modelos não realiza treino e as escolhas do utilizador não alteram os seus pesos.
 
-No modo português, um modelo traduz o contexto para inglês, GPT-2 gera três continuações e outro modelo traduz essas continuações para português. Esses tradutores também são modelos pré-treinados, utilizados sem novo treino nesta versão.
+GPT-2 é um modelo de uso geral: pode produzir repetições, referências soltas ou mudanças de tema e de personagens. A aplicação permite continuar o conto por várias rondas, mas utiliza apenas contexto recente para gerar texto, sem memória ilimitada da narrativa. Os resultados devem ser revistos pelo utilizador.
 
-### O que esperar dos resultados
+## Tecnologias
 
-Esta versão permite demonstrar a interface, a escolha de continuações e a integração dos modelos. Como GPT-2 não recebeu aqui a adaptação original a contos, pode produzir excertos em estilo de blogue, referências soltas, repetições ou mudanças de tema e de personagens. A tradução pode introduzir outras diferenças. A história conserva o texto completo para exportação, mas o modelo recebe apenas contexto recente e pode esquecer acontecimentos anteriores.
+Python · Streamlit · FastAPI · PyTorch · Hugging Face Transformers · GPT-2 · LoRA/PEFT
 
-Não estão disponíveis métricas nem uma comparação reproduzível entre o modelo original e o atual. Por isso, não se afirma uma melhoria ou degradação medida, nem equivalência à versão treinada.
+| Componente | Modelo utilizado na aplicação |
+|---|---|
+| Geração em inglês | `openai-community/gpt2` |
+| Tradução de português para inglês | `Helsinki-NLP/opus-mt-ROMANCE-en` |
+| Tradução de inglês para português | `Helsinki-NLP/opus-mt-tc-big-en-pt`, com prefixo `>>por<<` |
 
-### Para voltar a treinar
-
-Será necessário selecionar um novo conjunto de dados com origem e condições de utilização documentadas, rever o código de treino e definir uma avaliação. Um novo treino deve guardar o modelo base e a sua revisão, tokenizer, adaptadores LoRA, configuração, versões das dependências e resultados de avaliação, juntamente com instruções para os carregar na aplicação. Até isso acontecer, o projeto deve ser descrito como **protótipo recuperado com GPT-2 pré-treinado e código histórico de treino LoRA preservado**.
+As pré-visualizações da API são extraídas do início de cada continuação, sem um modelo adicional de resumo.
 
 ## Começar em Windows
 
-1. Extrai o ZIP para uma pasta normal, fora do próprio ZIP.
-2. Instala **Python 3.11 de 64 bits** a partir de [python.org](https://www.python.org/downloads/), se necessário.
-3. Abre `install_windows.bat`. A instalação cria um ambiente local e instala PyTorch para CPU e as dependências.
-4. Abre `start_windows.bat`. Mantém a janela aberta enquanto usas a aplicação.
-5. O navegador deverá abrir em [localhost:8501](http://localhost:8501). Se não abrir, visita esse endereço.
+1. Descarrega o repositório e extrai o ZIP para uma pasta normal.
+2. Confirma que tens **Python 3.10, 3.11 ou 3.12 de 64 bits**. Recomenda-se Python 3.11, disponível em [python.org](https://www.python.org/downloads/).
+3. Abre `install_windows.bat`. O instalador cria um ambiente local e instala as dependências, incluindo PyTorch para CPU.
+4. Abre `start_windows.bat` e mantém a janela aberta durante a utilização.
+5. Acede a [localhost:8501](http://localhost:8501), caso o navegador não abra automaticamente.
 
-O primeiro pedido de geração descarrega os modelos públicos do Hugging Face. Precisas de Internet, espaço para vários GB de cache e memória livre. A velocidade depende do computador; o modo português carrega mais modelos e consome mais recursos. Não há necessidade de API paga ou chave de API para os modelos públicos predefinidos.
+Se utilizares o Python Install Manager e faltar uma versão compatível, executa `py install 3.11` antes de iniciar a instalação.
 
-Para o primeiro teste, escolhe **English** e escreve a ocupação em inglês: só carrega GPT-2. Depois testa **Português**, que traduz o contexto para inglês e as continuações para português.
+O primeiro pedido de geração descarrega os modelos públicos do Hugging Face. É necessário acesso à Internet, espaço em disco para a cache e memória disponível. Não é necessária uma chave de API ou um serviço de inferência pago para os modelos predefinidos.
+
+Para experimentar com menos recursos, escolhe **English** e preenche os dados da personagem em inglês. O modo português necessita também dos dois modelos de tradução.
 
 ## Instalação manual
 
-Python suportado por este pacote: 3.10 a 3.12; 3.11 recomendado. Na pasta do projeto:
+Na pasta do projeto, com Python 3.11 instalado:
 
 ```powershell
 py -3.11 -m venv .venv
@@ -52,87 +63,76 @@ py -3.11 -m venv .venv
 .\.venv\Scripts\python.exe -m streamlit run app.py
 ```
 
-Em macOS/Linux, usa `python3.11 -m venv .venv` e `.venv/bin/python` nos comandos seguintes. Instala PyTorch de acordo com a [documentação oficial](https://pytorch.org/get-started/locally/) se o índice CPU não tiver uma distribuição para o teu sistema.
+Em macOS/Linux, cria o ambiente com `python3.11 -m venv .venv` e utiliza `.venv/bin/python` nos comandos seguintes. Consulta a [instalação oficial de PyTorch](https://pytorch.org/get-started/locally/) para escolher a distribuição adequada ao teu sistema.
 
-## O que foi corrigido
+## Configuração
 
-- O modelo passa a ser público e pré-treinado; a aplicação não depende de `model/` ou `raw_data/`.
-- Os modelos só são carregados ao gerar o conto e ficam em cache durante o processo.
-- O contexto traduz-se uma vez por ronda; as três alternativas são traduzidas em conjunto.
-- As escolhas mantêm-se durante atualizações da página. Selecionar uma acrescenta exatamente a opção apresentada e inicia outra ronda.
-- Todo o formulário é validado; as chaves dos botões são estáveis.
-- Imagens e configuração são localizadas relativamente ao projeto, não ao diretório de trabalho.
-- Os fundos originais foram preservados. Texto do utilizador/modelo não é inserido em HTML.
-- O conto completo pode ser guardado em `.txt`. A geração usa o contexto recente, com limite de tokens; não mantém memória ilimitada da história.
-- Pré-visualizações extrativas substituem o modelo de resumo BART para reduzir downloads e consumo de memória. Isto é uma alteração deliberada de comportamento.
-- API separada, com validação, falhas explícitas e endpoint de saúde sem descarregar modelos.
-- Dependências mínimas sem a lista de pacotes CUDA/Linux exportada no projeto original.
+Os valores predefinidos permitem iniciar a aplicação sem criar um ficheiro `.env`. Para personalizar, copia `.env.example` para `.env`, altera os valores e reinicia o processo.
 
-## Modelos e configuração
-
-Não é preciso criar `.env`: existem valores predefinidos. Para alterar, copia `.env.example` para `.env` e reinicia o processo. O `.env` antigo não deve ser reutilizado automaticamente.
-
-| Uso | Modelo predefinido |
+| Variável | Utilização |
 |---|---|
-| Geração em inglês | `openai-community/gpt2` |
-| Português para inglês | `Helsinki-NLP/opus-mt-ROMANCE-en` |
-| Inglês para português | `Helsinki-NLP/opus-mt-tc-big-en-pt`, prefixo `>>por<<` |
+| `MODEL_NAME` | Identificador do modelo de geração |
+| `TRANSLATOR_PT_EN` | Modelo de tradução para inglês |
+| `TRANSLATOR_EN_PT` | Modelo de tradução para português |
+| `PORTUGUESE_PREFIX` | Prefixo de língua do tradutor para português |
+| `DEVICE` | `cpu` por defeito; `cuda` requer hardware e instalação compatíveis |
+| `MAX_NEW_TOKENS` | Limite de tokens gerados por continuação |
+| `TEMPERATURE` | Controlo da aleatoriedade da geração |
+| `CONTEXT_TOKENS` | Limite de contexto recente enviado ao gerador |
+| `LOCAL_FILES_ONLY` | `1` utiliza apenas modelos já descarregados |
 
-`DEVICE=cpu` é o valor predefinido. Só muda para `cuda` se tiveres PyTorch e GPU compatíveis. `LOCAL_FILES_ONLY=1` impede downloads e exige todos os modelos/tokenizers na cache. Não ativares essa opção antes do primeiro teste online.
+Os modelos são carregados no primeiro pedido e reutilizados durante o processo. A história completa permanece disponível para exportação, mesmo quando o contexto enviado ao modelo é limitado.
 
-As versões são intervalos de compatibilidade, **não um ambiente bloqueado e validado de ponta a ponta**. Depois de uma execução bem-sucedida, regista as versões com `python -m pip freeze` no teu ambiente.
+## Testes
 
-## Testar
-
-Testes de lógica e de integração com modelos simulados:
+Instala as dependências de teste e executa a suite:
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements-test.txt
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
-Sem dependências externas, os testes de lógica continuam a correr e os testes HTTP/Streamlit são assinalados como ignorados. Esses testes não comprovam a qualidade nem a disponibilidade dos modelos reais.
+Os testes cobrem a lógica da narrativa, persistência das escolhas, validação, configuração, API e interface. Os testes de API e interface são ignorados quando as respetivas dependências não estão instaladas. Os testes com modelos simulados não avaliam a qualidade da geração real.
 
-Teste de geração **real**, com downloads no primeiro uso:
+Para testar a inferência com os modelos:
 
 ```powershell
 .\.venv\Scripts\python.exe -m project.smoke --language en
 .\.venv\Scripts\python.exe -m project.smoke --language pt --context "Era uma vez uma viajante que encontrou um castelo misterioso."
 ```
 
-Na interface, verifica: submissão de campos vazios, geração de três alternativas, seleção de uma delas, nova ronda, guardar conto e novo conto. Consulta `VALIDACAO.md` para saber o que foi efetivamente executado nesta entrega.
+A aplicação foi utilizada localmente com geração em português e continuação por várias rondas. A qualidade narrativa não foi avaliada através de métricas formais.
 
 ## API opcional
 
-A interface chama o motor diretamente: não precisa de um segundo servidor API para funcionar.
+A interface chama o motor diretamente e não necessita de um servidor API separado. Para utilizar a API:
 
 ```powershell
 .\.venv\Scripts\python.exe -m uvicorn project.api:app --host 127.0.0.1 --port 8000
 ```
 
-- `GET /health`: estado do processo e modelos carregados. Um resultado saudável não prova inferência.
-- `POST /generate`: JSON `{"context":"Once upon a time...","language":"en"}`. Devolve `continuations` e `labels`.
-- `GET /generate_outputs?context=...&language=en`: formato legado `[continuações, rótulos]`. Prefere POST para novos clientes.
-- [Documentação local](http://127.0.0.1:8000/docs).
+- `GET /health`: estado do processo e indicação dos modelos carregados.
+- `POST /generate`: recebe `{"context":"Once upon a time...","language":"en"}` e devolve `continuations` e `labels`.
+- `GET /generate_outputs`: endpoint de compatibilidade que devolve `[continuações, rótulos]`.
+- [Documentação interativa local](http://127.0.0.1:8000/docs).
 
-Usa a API localmente. Não está preparada com autenticação, quotas ou controlo de abuso para exposição pública.
+A API destina-se a utilização local. Uma publicação aberta requer autenticação, limites de utilização e controlo de acesso.
 
-## Docker opcional
+## Docker
 
 ```text
 docker build -t conta-tu-o-conto .
 docker run --rm -p 8501:8501 -v conta-model-cache:/root/.cache/huggingface conta-tu-o-conto
 ```
 
-O Dockerfile inicia a interface. O volume conserva os downloads. Esta construção não foi executada no ambiente de recuperação.
+O contentor inicia a interface Streamlit. O volume mantém a cache dos modelos entre execuções. A construção Docker não foi validada neste ambiente.
 
-## Preservação do trabalho original
+## Contribuições
 
-O código de interface, treino com LoRA e notebooks recebidos no ZIP foram preservados em `legacy/`. São referência histórica: não são importados nem executados pela nova aplicação. Têm os requisitos e problemas antigos e não são um comando de treino pronto a usar. Os pesos treinados e os dados não foram recuperados nem substituídos por resultados inventados.
+Projeto colaborativo. **Nuno Fernandes** desenvolveu a interface Streamlit completa e foi responsável pelo trabalho de treino e pela implementação do código LoRA.
 
-## Referências e atribuição dos modelos
+## Referências
 
-- [GPT-2: modelo](https://huggingface.co/openai-community/gpt2) e [documentação](https://huggingface.co/docs/transformers/v4.51.3/en/model_doc/gpt2).
+- [GPT-2](https://huggingface.co/openai-community/gpt2) e [documentação de Transformers](https://huggingface.co/docs/transformers/v4.51.3/en/model_doc/gpt2).
 - [OPUS-MT ROMANCE → inglês](https://huggingface.co/Helsinki-NLP/opus-mt-ROMANCE-en).
-- [OPUS-MT inglês → português](https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-en-pt), disponibilizado pelo grupo Helsinki-NLP / projeto OPUS-MT, sob CC BY 4.0 conforme a ficha do modelo. O modelo é utilizado sem alteração nesta configuração; o texto de entrada recebe o prefixo de português indicado pelos autores. Consulta a ficha para publicações, autoria e licença.
-- [Repositório original de Nuno Fernandes e colaboradores](https://github.com/mmf3358/Conta_tu_o_Conto). Esta recuperação não altera a autoria original nem publica alterações no GitHub.
+- [OPUS-MT inglês → português](https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-en-pt), do grupo Helsinki-NLP / projeto OPUS-MT, sob CC BY 4.0 conforme a ficha do modelo. É utilizado sem alteração, com o prefixo de português indicado pelos autores. Consulta a ficha para autoria, publicações e licença.
