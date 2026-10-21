@@ -1,6 +1,6 @@
 # Conta tu o Conto
 
-A idéia por trás detas aplicação é a da criação de um gerador de contos infinitos. O Usuário escolhe um personagem, um tema e o conto começa a desenrolar-se de três em três opções de continuação. 
+A idéia por trás desta aplicação é a da criação de um gerador de contos infinitos. O Usuário escolhe um personagem e  um tema. O conto começa a desenrolar-se por rondas, com três opções de continuação cada uma. Quando o usuário decidir que é suficiente, poderá salvar o conto resultante.
 
 A aplicação combina uma interface **Streamlit**, geração de texto com **GPT-2** e tradução entre português e inglês. O conto cresce com as escolhas do utilizador e pode ser guardado num ficheiro de texto.
 
