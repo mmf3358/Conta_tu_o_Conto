@@ -39,7 +39,7 @@ def page_style(generator=False):
 def questionario():
     st.title('Conta tu o Conto')
     st.write('Cria uma personagem, escolhe um cenário e decide como a história continua.')
-    st.caption('Protótipo com GPT-2 pré-treinado. O modelo original já não está disponível; o texto pode ser incoerente ou inadequado. Requer revisão humana.')
+    st.caption('Narrativa interativa com GPT-2 pré-treinado. Os resultados são experimentais e devem ser revistos pelo utilizador.')
     with st.form('story_setup'):
         title = st.text_input('Título do conto', max_chars=120)
         name = st.text_input('Nome da personagem', max_chars=80)
