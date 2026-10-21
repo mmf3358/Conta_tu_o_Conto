@@ -1,19 +1,12 @@
+"""Run with: streamlit run project/streamlit_app/app.py"""
 import streamlit as st
-
-from streamlit_utils import *
-from gerador import gerador
-from questionario import questionario
-
-
-
+from project.streamlit_app.gerador import gerador
+from project.streamlit_app.questionario import questionario
 
 if "estado_inicial" not in st.session_state:
-      st.session_state["estado_inicial"] = 'questionario'
+    st.session_state["estado_inicial"] = "questionario"
 
-if st.session_state["estado_inicial"] == 'questionario':
-    if "contexto" not in st.session_state:
-        st.session_state["contexto"] = ""
-    st.session_state["contexto"] = questionario()
-
-elif st.session_state["estado_inicial"] == 'gerador':
-      gerador()
+if st.session_state["estado_inicial"] == "gerador":
+    gerador()
+else:
+    questionario()
