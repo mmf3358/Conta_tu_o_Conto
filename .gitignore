@@ -1,4 +1,9 @@
-raw_data/
+.env
+.venv/
 model/
+raw_data/
 __pycache__/
-project/streamlit_app/__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+.cache/

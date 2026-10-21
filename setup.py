@@ -1,13 +1,10 @@
-from setuptools import find_packages
-from setuptools import setup
+from pathlib import Path
+from setuptools import find_packages, setup
 
-with open("requirements.txt") as f:
-    content = f.readlines()
-requirements = [x.strip() for x in content if "git+" not in x]
-
-setup(name='project',                                
-    version="0.0.1",
-    description="Conta_tu_to_conto",
-    install_requires=requirements,
-    packages=find_packages(),
-    zip_safe=False)
+root = Path(__file__).resolve().parent
+setup(name='conta-tu-o-conto', version='0.1.0',
+      description='Interactive storytelling prototype with pretrained GPT-2',
+      python_requires='>=3.10,<3.13',
+      packages=find_packages(include=['project', 'project.*']),
+      install_requires=(root / 'requirements.txt').read_text().splitlines(),
+      package_data={'project': ['images/*.png']})
