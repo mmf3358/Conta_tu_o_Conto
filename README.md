@@ -1,6 +1,6 @@
 # Conta tu o Conto
 
-Aplicação de narrativa interativa com inteligência artificial. Cria uma personagem, escolhe um cenário e constrói um conto ao selecionar uma de três continuações geradas em cada ronda.
+A idéia por trás detas aplicação é a da criação de um gerador de contos infinitos. O Usuário escolhe um personagem, um tema e o conto começa a desenrolar-se de três em três opções de continuação. 
 
 A aplicação combina uma interface **Streamlit**, geração de texto com **GPT-2** e tradução entre português e inglês. O conto cresce com as escolhas do utilizador e pode ser guardado num ficheiro de texto.
 
@@ -23,7 +23,7 @@ A aplicação funciona com **GPT-2 pré-treinado**, mantendo a sua essência: ge
 
 No modo português, o contexto é traduzido para inglês antes da geração e as continuações são traduzidas para português. No modo inglês, apenas GPT-2 é necessário. O download inicial dos modelos não realiza treino e as escolhas do utilizador não alteram os seus pesos.
 
-GPT-2 é um modelo de uso geral: pode produzir repetições, referências soltas ou mudanças de tema e de personagens. A aplicação permite continuar o conto por várias rondas, mas utiliza apenas contexto recente para gerar texto, sem memória ilimitada da narrativa. Os resultados devem ser revistos pelo utilizador.
+GPT-2 é um modelo de uso geral: pode produzir repetições, referências soltas ou mudanças de tema e de personagens. A aplicação permite continuar o conto por várias rondas, mas utiliza apenas contexto recente para gerar texto, sem memória ilimitada da narrativa. 
 
 ## Tecnologias
 
@@ -39,17 +39,17 @@ As pré-visualizações da API são extraídas do início de cada continuação,
 
 ## Começar em Windows
 
-1. Descarrega o repositório e extrai o ZIP para uma pasta normal.
-2. Confirma que tens **Python 3.10, 3.11 ou 3.12 de 64 bits**. Recomenda-se Python 3.11, disponível em [python.org](https://www.python.org/downloads/).
-3. Abre `install_windows.bat`. O instalador cria um ambiente local e instala as dependências, incluindo PyTorch para CPU.
-4. Abre `start_windows.bat` e mantém a janela aberta durante a utilização.
-5. Acede a [localhost:8501](http://localhost:8501), caso o navegador não abra automaticamente.
+1. Descarregar o repositório e extrair o ZIP para uma pasta normal.
+2. Confirmar que tem **Python 3.10, 3.11 ou 3.12 de 64 bits**. Recomenda-se Python 3.11, disponível em [python.org](https://www.python.org/downloads/).
+3. Abrir `install_windows.bat`. O instalador cria um ambiente local e instala as dependências, incluindo PyTorch para CPU.
+4. Abrir `start_windows.bat` e manter a janela aberta durante a utilização.
+5. Aceder a [localhost:8501](http://localhost:8501), caso o navegador não abra automaticamente.
 
-Se utilizares o Python Install Manager e faltar uma versão compatível, executa `py install 3.11` antes de iniciar a instalação.
+Se utilizar o Python Install Manager e faltar uma versão compatível, executar `py install 3.11` antes de iniciar a instalação.
 
 O primeiro pedido de geração descarrega os modelos públicos do Hugging Face. É necessário acesso à Internet, espaço em disco para a cache e memória disponível. Não é necessária uma chave de API ou um serviço de inferência pago para os modelos predefinidos.
 
-Para experimentar com menos recursos, escolhe **English** e preenche os dados da personagem em inglês. O modo português necessita também dos dois modelos de tradução.
+Para experimentar com menos recursos, escolher **English** e preencher os dados da personagem em inglês. O modo português necessita também dos dois modelos de tradução.
 
 ## Instalação manual
 
@@ -63,11 +63,11 @@ py -3.11 -m venv .venv
 .\.venv\Scripts\python.exe -m streamlit run app.py
 ```
 
-Em macOS/Linux, cria o ambiente com `python3.11 -m venv .venv` e utiliza `.venv/bin/python` nos comandos seguintes. Consulta a [instalação oficial de PyTorch](https://pytorch.org/get-started/locally/) para escolher a distribuição adequada ao teu sistema.
+Em macOS/Linux, criar o ambiente com `python3.11 -m venv .venv` e utiliza `.venv/bin/python` nos comandos seguintes. Consultar a [instalação oficial de PyTorch](https://pytorch.org/get-started/locally/) para escolher a distribuição adequada ao sistema em questão.
 
 ## Configuração
 
-Os valores predefinidos permitem iniciar a aplicação sem criar um ficheiro `.env`. Para personalizar, copia `.env.example` para `.env`, altera os valores e reinicia o processo.
+Os valores predefinidos permitem iniciar a aplicação sem criar um ficheiro `.env`. Para personalizar, copiar `.env.example` para `.env`, alterar os valores e reiniciar o processo.
 
 | Variável | Utilização |
 |---|---|
